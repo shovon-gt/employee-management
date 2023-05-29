@@ -1,0 +1,66 @@
+{% extends "base.html"%} {% block content%}
+{% comment %} <div class="row">
+  <div class="col-sm-4">
+    <h4 class="text-center alert alert-info">Add New Employee</h4>
+    <form action="" method="POST">
+      {% csrf_token %} {{ form.as_p}}
+      <input type="submit" class="btn btn-success" value="Add" />
+    </form>
+  </div> {% endcomment %}
+  {% comment %} offset-1 {% endcomment %} {% comment %}
+  <a class="btn btn-primary" href="#" role="button">Link</a>
+  <a href="{% url 'add-show' %}" class="btn btn-info float-right"
+    >Add Employee</a
+  >
+  {% endcomment %}
+  <a class="btn btn-primary" href="{% url 'add-employee'%}" role="button">Add Employee</a>
+  <div class="col-sm-18">
+    <h4 class="text-center alert alert-info">Show Employees Information</h4>
+    {% if stu %}
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Password</th>
+          <th scope="col">Jobtype</th>
+          <th scope="col">Salary</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for stu in stu%}
+        <tr>
+          <th scope="row">{{stu.id}}</th>
+          <td>{{stu.name}}</td>
+          <td>{{stu.email}}</td>
+          <td>{{stu.password}}</td>
+          <td>{{stu.jobtype}}</td>
+          <td>{{stu.salary}}</td>
+          <td>
+            <a
+              href="{% url 'update-data' stu.id %}"
+              class="btn btn-warning btn-sm"
+            >
+              Edit</a
+            >
+            <form
+              action="{% url 'delete-data' stu.id %}"
+              method="post"
+              class="d-inline"
+            >
+              {% csrf_token %}
+              <input type="submit" class="btn btn-danger" value="Delete" />
+            </form>
+          </td>
+        </tr>
+        {%endfor%} {%else %}
+        <h4 class="text-center alert alert-warning">No Data Available</h4>
+      </tbody>
+    </table>
+
+    {% endif%}
+  </div>
+</div>
+{%endblock%}
